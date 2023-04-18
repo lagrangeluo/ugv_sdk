@@ -78,15 +78,14 @@ class PercyBase : public PercyRobotCommonInterface {
   }
 
   // light command
-  void SendLightCommand(AgxPercyLightctlMode control_enable,AgxPercyLightMode front_illumination_mode, 
-                        AgxPercyLightMode back_illumination_mode) {
+  void SendLightCommand(PercyLightCmdMessage &light_msg) {
     if (can_ != nullptr && can_->IsOpened()) {
       Agx_Percy_Message msg;
       msg.type = AgxPercyMsgLightCommand;
 
-      msg.body.light_command_msg.control_enable = control_enable;
-      msg.body.light_command_msg.front_illumination_mode = front_illumination_mode;
-      msg.body.light_command_msg.back_illumination_mode = back_illumination_mode;
+      msg.body.light_command_msg.control_enable = light_msg.control_enable;
+      msg.body.light_command_msg.front_illumination_mode = light_msg.front_illumination_mode;
+      msg.body.light_command_msg.back_illumination_mode = light_msg.back_illumination_mode;
       // send to can bus
       can_frame frame;
       if (parser_.EncodeMessage(&msg, &frame)) can_->SendFrame(frame);

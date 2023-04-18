@@ -178,9 +178,7 @@ class PercyRobotCommonInterface {
         "is supposed to be used.");
   };
 
-  virtual void SendLightCommand(AgxPercyLightctlMode control_enable,
-                                AgxPercyLightMode front_illumination_mode, 
-                                AgxPercyLightMode back_illumination_mode) {
+  virtual void SendLightCommand(PercyLightCmdMessage &light_msg) {
     throw std::runtime_error(
         "Only a derived version of this function with actual implementation "
         "is supposed to be used.");

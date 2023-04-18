@@ -96,9 +96,6 @@ add_library(${PROJECT_NAME}
     src/utilities/protocol_detector.cpp
     ########################
     ## public interface to access robot
-    src/mobile_robot/scout_robot.cpp
-    src/mobile_robot/hunter_robot.cpp
-    src/mobile_robot/bunker_robot.cpp
     ########################
     ## protocol v2 support
     src/protocol_v2/agilex_msg_parser_v2.c

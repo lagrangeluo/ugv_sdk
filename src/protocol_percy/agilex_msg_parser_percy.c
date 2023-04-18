@@ -306,6 +306,10 @@ bool EncodeCanFramePERCY(const Agx_Percy_Message *msg, struct can_frame *tx_fram
       frame.linear_velocity.low_byte = (uint8_t)(linear_cmd & 0x00ff);
       frame.angular_velocity.high_byte = (uint8_t)(angular_cmd >> 8);
       frame.angular_velocity.low_byte = (uint8_t)(angular_cmd & 0x00ff);
+      frame.reserved.high_byte = 0;
+      frame.reserved.low_byte = 0;
+      frame.reserved.msb = 0;
+      frame.reserved.lsb = 0;
       memcpy(tx_frame->data, (uint8_t *)(&frame), tx_frame->can_dlc);
       break;
     }

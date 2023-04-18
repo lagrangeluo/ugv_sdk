@@ -136,8 +136,7 @@ typedef struct {
 typedef struct {
   struct16_t linear_velocity;
   struct16_t angular_velocity;
-  struct16_t lateral_velocity;
-  struct16_t steering_angle;
+  struct32_t reserved;
 } MotionCommandFrame;
 
 #define LIGHT_ENABLE_CMD_CTRL ((uint8_t)0x01)
