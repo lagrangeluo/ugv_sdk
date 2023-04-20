@@ -121,7 +121,31 @@ class PercyBase : public PercyRobotCommonInterface {
       if (parser_.EncodeMessage(&msg, &frame_2)) can_->SendFrame(frame_2);
     }
   }
+  
+  void SetBrakeMode(AgxPercyBrakeMode mode) {
+    // construct message
+    Agx_Percy_Message msg;
+    msg.type = AgxMsgPercyBrakingCommand;
+    msg.body.braking_command_msg.enable_braking = mode;
 
+    // encode msg to can frame and send to bus
+    if (can_ != nullptr && can_->IsOpened()) {
+      can_frame frame;
+      if (parser_.EncodeMessage(&msg, &frame)) can_->SendFrame(frame);
+    }
+  }
+
+  void SetPowerRail(PowerRailctlMessage &message)
+  {
+    Agx_Percy_Message msg;
+    msg.type = AgxMsgPercyPowerRailCommand;
+    msg.body.pwr_rail_ctl_cmd_msg.power_status = message.power_status;
+    
+    if (can_ != nullptr && can_->IsOpened()) {
+      can_frame frame;
+      if (parser_.EncodeMessage(&msg, &frame)) can_->SendFrame(frame);
+    }
+  }
   void ResetRobotState() override {}
 
   ProtocolVersion GetParserProtocolVersion() override {
@@ -175,19 +199,6 @@ class PercyBase : public PercyRobotCommonInterface {
 
   void DisconnectPort() {
     if (can_ != nullptr && can_->IsOpened()) can_->Close();
-  }
-
-  void SetBrakeMode(AgxPercyBrakeMode mode) {
-    // construct message
-    Agx_Percy_Message msg;
-    msg.type = AgxMsgBrakeModeConfig;
-    msg.body.braking_command_msg.enable_braking = mode;
-
-    // encode msg to can frame and send to bus
-    if (can_ != nullptr && can_->IsOpened()) {
-      can_frame frame;
-      if (parser_.EncodeMessage(&msg, &frame)) can_->SendFrame(frame);
-    }
   }
 
   void ParseCANFrame(can_frame *rx_frame) {

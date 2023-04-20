@@ -74,6 +74,20 @@ typedef struct {
   uint16_t power_status;
 } PowerRailctlMessage;
 
+/**************** pwoer rail messages *****************/
+#define EXTERNAL_48V ((uint16_t)0x0001)
+#define EXTERNAL_5V ((uint16_t)0x0002)
+#define FAN_12V ((uint16_t)0x0004)
+
+#define JETSON1_12V ((uint16_t)0x0100)
+#define JETSON2_12V ((uint16_t)0x0200)
+#define ULTRASONIC_SENSOR_12V ((uint16_t)0x0400)
+#define CAMERA_12V ((uint16_t)0x0800)
+#define ROUTER_5G_12V ((uint16_t)0x1000)
+#define SWITCHBOARD_12V ((uint16_t)0x2000)
+#define USB_HUB_12V ((uint16_t)0x4000)
+#define SICK_SYSTEM_24V ((uint16_t)0x8000)
+
 typedef struct {
   uint16_t power_status;
 } PowerRailstatusMessage;

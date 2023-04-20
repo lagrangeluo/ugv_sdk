@@ -1,5 +1,10 @@
 # Changelog for sdk
 
+## 1.1 (2023-4-20)
+------------------
+- test light rgb command message using virtual can network.
+- test other 0x1 series command
+
 ## 1.1 (2023-4-18)
 ------------------
 - test motion command and light mode control command using virtual can network,this two functionality is ok
