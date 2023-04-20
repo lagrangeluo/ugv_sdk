@@ -349,7 +349,7 @@ bool EncodeCanFramePERCY(const Agx_Percy_Message *msg, struct can_frame *tx_fram
     }
     case AgxPercyMsgBackRGBCommand: {
       static uint8_t count = 0;
-      tx_frame->can_id = CAN_MSG_LIGHT_FRONTRGB_COMMAND_ID;
+      tx_frame->can_id = CAN_MSG_LIGHT_BACKRGB_COMMAND_ID;
       tx_frame->can_dlc = 8;
       M8_byte_Frame frame;
         frame.byte_0 = 0;

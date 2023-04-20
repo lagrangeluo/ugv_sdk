@@ -118,7 +118,7 @@ class PercyBase : public PercyRobotCommonInterface {
       msg.body.back_light_RGB_msgs.RIGHT_LIGHT[2] = light_status[3][2];
       // send to can bus
       can_frame frame_2;
-      if (parser_.EncodeMessage(&msg, &frame_1)) can_->SendFrame(frame_2);
+      if (parser_.EncodeMessage(&msg, &frame_2)) can_->SendFrame(frame_2);
     }
   }
 
