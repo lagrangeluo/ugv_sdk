@@ -250,6 +250,20 @@ bool DecodeCanFramePERCY(const struct can_frame *rx_frame, Agx_Percy_Message *ms
       msg->body.PowerButtonEvfb_msg.power_button_event = frame->byte_0;
       break;
     }
+    case MECHANICAL_CALI_ID:{
+      msg->type = AgxMsgPercyMechanicalCali;
+      M8_byte_Frame *frame = (M8_byte_Frame *)(rx_frame->data);
+      msg->body.MechanicalCali_msg.wheel_circumference = 
+          (int32_t)((uint32_t)(frame->byte_3) |
+                    (uint32_t)(frame->byte_2) << 8 |
+                    (uint32_t)(frame->byte_1) << 16 |
+                    (uint32_t)(frame->byte_0) << 24);
+      msg->body.MechanicalCali_msg.wheel_track = 
+          (int32_t)((uint32_t)(frame->byte_7) |
+                    (uint32_t)(frame->byte_6) << 8 |
+                    (uint32_t)(frame->byte_5) << 16 |
+                    (uint32_t)(frame->byte_4) << 24);
+    }
 
     /*************** query/config frame **************/
     //TODO

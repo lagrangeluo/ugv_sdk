@@ -312,6 +312,11 @@ typedef struct {
   uint8_t battery_min_teperature;
 } BmsExtendedMessage;
 
+typedef struct {
+  uint32_t wheel_circumference;
+  uint32_t wheel_track;
+} MechanicalCaliMessage;
+
 /************  Query/config messages ****************/
 
 typedef struct {
@@ -527,6 +532,7 @@ typedef enum {
   AgxMsgPercyOdometry,
   AgxMsgPercyBmsBasic,
   AgxMsgPercyPowerButton,
+  AgxMsgPercyMechanicalCali,
 
   // query/config
   AgxMsgPercyFactory,
@@ -574,6 +580,8 @@ typedef struct {
     OdometryMessage odometry_msg;
     BmsBasicMessage bms_basic_msg;
     PowerBUttonEventFb PowerButtonEvfb_msg;
+    MechanicalCaliMessage MechanicalCali_msg;
+
     // query/config
     RestoreFactorySetting restore_fac_set_msg;
     PercyCANControl can_control_msg;

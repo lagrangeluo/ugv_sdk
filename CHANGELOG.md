@@ -1,5 +1,9 @@
 # Changelog for sdk
 
+## 1.1 (2023-4-24)
+------------------
+- test all feedbacks of 0x2 and 0x3
+
 ## 1.1 (2023-4-20)
 ------------------
 - test light rgb command message using virtual can network.

@@ -121,6 +121,7 @@ struct PercySensorStateMsgGroup {
   OdometryMessage odom_state;
   BmsBasicMessage bms_states;
   PowerBUttonEventFb button_state;
+  MechanicalCaliMessage mechanical_state;
 };
 
 class PercyRobotCommonInterface {

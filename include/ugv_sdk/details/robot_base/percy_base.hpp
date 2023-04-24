@@ -203,6 +203,7 @@ class PercyBase : public PercyRobotCommonInterface {
 
   void ParseCANFrame(can_frame *rx_frame) {
     Agx_Percy_Message status_msg;
+    std::cout<<"parsecanframe"<<std::endl;
     if (parser_.DecodeMessage(rx_frame, &status_msg)) {
       UpdateRobotCoreState(status_msg);
       UpdateActuatorState(status_msg);
@@ -269,7 +270,7 @@ class PercyBase : public PercyRobotCommonInterface {
     std::lock_guard<std::mutex> guard(actuator_state_mtx_);
     switch (status_msg.type) {
       case AgxMsgPercyActuatorHSState: {
-        std::cout << "actuator hs feedback received" << std::endl;
+        //std::cout << "actuator hs feedback received" << std::endl;
         actuator_state_msgs_.time_stamp = AgxMsgRefClock::now();
         actuator_state_msgs_
             .actuator_hs_state[status_msg.body.actuator_hs_state_msg.motor_id] =
@@ -305,6 +306,10 @@ class PercyBase : public PercyRobotCommonInterface {
       case AgxMsgPercyPowerButton: {
         sensor_state_msgs_.time_stamp = AgxMsgRefClock::now();
         sensor_state_msgs_.button_state = status_msg.body.PowerButtonEvfb_msg;
+        break;
+      }
+      case AgxMsgPercyMechanicalCali: {
+        sensor_state_msgs_.mechanical_state = status_msg.body.MechanicalCali_msg;
         break;
       }
       default:

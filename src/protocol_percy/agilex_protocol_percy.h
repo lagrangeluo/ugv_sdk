@@ -73,6 +73,7 @@ extern "C" {
 #define CAN_MSG_ODOMETRY_ID ((uint32_t)0x311)
 #define CAN_MSG_BMS_BASIC_ID ((uint32_t)0x361)
 #define CAN_MSG_POWER_BUTTON_EVENT_ID ((uint32_t)0x371)
+#define MECHANICAL_CALI_ID ((uint32_t)0x381)
 
 // query/config group: 0x4
 #define CAN_MSG_RESTORY_FACTORY_ID ((uint32_t)0x411)
