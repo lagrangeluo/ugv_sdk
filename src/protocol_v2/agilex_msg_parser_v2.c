@@ -182,11 +182,7 @@ bool DecodeCanFrameV2(const struct can_frame *rx_frame, AgxMessage *msg) {
           ((uint16_t)(frame->driver_voltage.low_byte) |
            (uint16_t)(frame->driver_voltage.high_byte) << 8) *
           0.1;
-      msg->body.actuator_ls_state_msg.driver_temp =
-          (int16_t)((uint16_t)(frame->driver_temp.low_byte) |
-                    (uint16_t)(frame->driver_temp.high_byte) << 8);
-      msg->body.actuator_ls_state_msg.motor_temp = frame->motor_temp;
-      msg->body.actuator_ls_state_msg.driver_state = frame->driver_state;
+      msg->body.actuator_ls_state_msg.driver_voltage = frame->driver_state;
       break;
     }
     case CAN_MSG_CURRENT_CTRL_MODE: {

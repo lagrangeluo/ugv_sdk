@@ -202,9 +202,7 @@ typedef struct {
 typedef struct {
   uint8_t motor_id;
   float driver_voltage;
-  float driver_temp;
-  float motor_temp;
-  uint8_t driver_state;
+  uint8_t driver_error;
 } ActuatorLSStateMessage;
 
 // for ranger

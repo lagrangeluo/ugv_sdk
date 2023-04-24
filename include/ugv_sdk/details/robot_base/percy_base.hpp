@@ -228,14 +228,30 @@ class PercyBase : public PercyRobotCommonInterface {
       case AgxMsgPercyLightState: {
         // std::cout << "light control feedback received" << std::endl;
         core_state_msgs_.time_stamp = AgxMsgRefClock::now();
-        core_state_msgs_.light_state = status_msg.body.light_state_msg;
+        core_state_msgs_.light_state.lightctl_enable = status_msg.body.light_state_msg.lightctl_enable;
+        core_state_msgs_.light_state.front_illu_mode = status_msg.body.light_state_msg.front_illu_mode;
+        core_state_msgs_.light_state.back_illu_mode = status_msg.body.light_state_msg.back_illu_mode;
         break;
       }
       case AgxMsgPercyLightFrontRGBState:{
-        //TODO
+        core_state_msgs_.time_stamp = AgxMsgRefClock::now();
+        core_state_msgs_.light_state.LIGHT_STATUS[0][0] = status_msg.body.light_state_msg.LIGHT_STATUS[0][0];
+        core_state_msgs_.light_state.LIGHT_STATUS[0][1] = status_msg.body.light_state_msg.LIGHT_STATUS[0][1];
+        core_state_msgs_.light_state.LIGHT_STATUS[0][2] = status_msg.body.light_state_msg.LIGHT_STATUS[0][2];
+        core_state_msgs_.light_state.LIGHT_STATUS[1][0] = status_msg.body.light_state_msg.LIGHT_STATUS[1][0];
+        core_state_msgs_.light_state.LIGHT_STATUS[1][1] = status_msg.body.light_state_msg.LIGHT_STATUS[1][1];
+        core_state_msgs_.light_state.LIGHT_STATUS[1][2] = status_msg.body.light_state_msg.LIGHT_STATUS[1][2];
+        break;
       }
       case AgxMsgPercyLightBackRGBState:{
-        //TODO
+        core_state_msgs_.time_stamp = AgxMsgRefClock::now();
+        core_state_msgs_.light_state.LIGHT_STATUS[2][0] = status_msg.body.light_state_msg.LIGHT_STATUS[2][0];
+        core_state_msgs_.light_state.LIGHT_STATUS[2][1] = status_msg.body.light_state_msg.LIGHT_STATUS[2][1];
+        core_state_msgs_.light_state.LIGHT_STATUS[2][2] = status_msg.body.light_state_msg.LIGHT_STATUS[2][2];
+        core_state_msgs_.light_state.LIGHT_STATUS[3][0] = status_msg.body.light_state_msg.LIGHT_STATUS[3][0];
+        core_state_msgs_.light_state.LIGHT_STATUS[3][1] = status_msg.body.light_state_msg.LIGHT_STATUS[3][1];
+        core_state_msgs_.light_state.LIGHT_STATUS[3][2] = status_msg.body.light_state_msg.LIGHT_STATUS[3][2];
+        break;
       }
 
       case AgxMsgPercyRcState: {
@@ -253,7 +269,7 @@ class PercyBase : public PercyRobotCommonInterface {
     std::lock_guard<std::mutex> guard(actuator_state_mtx_);
     switch (status_msg.type) {
       case AgxMsgPercyActuatorHSState: {
-        // std::cout << "actuator hs feedback received" << std::endl;
+        std::cout << "actuator hs feedback received" << std::endl;
         actuator_state_msgs_.time_stamp = AgxMsgRefClock::now();
         actuator_state_msgs_
             .actuator_hs_state[status_msg.body.actuator_hs_state_msg.motor_id] =

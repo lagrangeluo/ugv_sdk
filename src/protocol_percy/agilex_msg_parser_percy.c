@@ -111,32 +111,32 @@ bool DecodeCanFramePERCY(const struct can_frame *rx_frame, Agx_Percy_Message *ms
     case CAN_MSG_LIGHT_STATE_ID: {
       msg->type = AgxMsgPercyLightState;
       M8_byte_Frame *frame = (M8_byte_Frame *)(rx_frame->data);
-      msg->body.light_command_msg.control_enable =
+      msg->body.light_state_msg.lightctl_enable =
           (frame->byte_0 != 0) ? true : false;
-      msg->body.light_command_msg.front_illumination_mode = frame->byte_1;
-      msg->body.light_command_msg.back_illumination_mode = frame->byte_3;
+      msg->body.light_state_msg.front_illu_mode = frame->byte_1;
+      msg->body.light_state_msg.back_illu_mode = frame->byte_3;
       break;
     }
     case CAN_MSG_LIGHT_FRONT_RGB_ID: {
       msg->type = AgxMsgPercyLightFrontRGBState;
       M8_byte_Frame *frame = (M8_byte_Frame *)(rx_frame->data);
-      msg->body.front_light_RGB_msgs.LEFT_LIGHT[0] = frame->byte_1;
-      msg->body.front_light_RGB_msgs.LEFT_LIGHT[1] = frame->byte_2;
-      msg->body.front_light_RGB_msgs.LEFT_LIGHT[2] = frame->byte_3;
-      msg->body.front_light_RGB_msgs.RIGHT_LIGHT[0] = frame->byte_4;
-      msg->body.front_light_RGB_msgs.RIGHT_LIGHT[1] = frame->byte_5;
-      msg->body.front_light_RGB_msgs.RIGHT_LIGHT[2] = frame->byte_6;
+      msg->body.light_state_msg.LIGHT_STATUS[0][0] = frame->byte_1;
+      msg->body.light_state_msg.LIGHT_STATUS[0][1] = frame->byte_2;
+      msg->body.light_state_msg.LIGHT_STATUS[0][2] = frame->byte_3;
+      msg->body.light_state_msg.LIGHT_STATUS[1][0] = frame->byte_4;
+      msg->body.light_state_msg.LIGHT_STATUS[1][1] = frame->byte_5;
+      msg->body.light_state_msg.LIGHT_STATUS[1][2] = frame->byte_6;
       break;
     }
     case CAN_MSG_LIGHT_BACK_RGB_ID: {
       msg->type = AgxMsgPercyLightBackRGBState;
       M8_byte_Frame *frame = (M8_byte_Frame *)(rx_frame->data);
-      msg->body.front_light_RGB_msgs.LEFT_LIGHT[0] = frame->byte_1;
-      msg->body.front_light_RGB_msgs.LEFT_LIGHT[1] = frame->byte_2;
-      msg->body.front_light_RGB_msgs.LEFT_LIGHT[2] = frame->byte_3;
-      msg->body.front_light_RGB_msgs.RIGHT_LIGHT[0] = frame->byte_4;
-      msg->body.front_light_RGB_msgs.RIGHT_LIGHT[1] = frame->byte_5;
-      msg->body.front_light_RGB_msgs.RIGHT_LIGHT[2] = frame->byte_6;
+      msg->body.light_state_msg.LIGHT_STATUS[2][0] = frame->byte_1;
+      msg->body.light_state_msg.LIGHT_STATUS[2][1] = frame->byte_2;
+      msg->body.light_state_msg.LIGHT_STATUS[2][2] = frame->byte_3;
+      msg->body.light_state_msg.LIGHT_STATUS[3][0] = frame->byte_4;
+      msg->body.light_state_msg.LIGHT_STATUS[3][1] = frame->byte_5;
+      msg->body.light_state_msg.LIGHT_STATUS[3][2] = frame->byte_6;
       break;
     }
 
@@ -204,7 +204,9 @@ bool DecodeCanFramePERCY(const struct can_frame *rx_frame, Agx_Percy_Message *ms
           ((uint16_t)(frame->byte_1) |
            (uint16_t)(frame->byte_0) << 8) *
           0.1;
-      msg->body.actuator_ls_state_msg.driver_state = frame->byte_6;
+      msg->body.actuator_ls_state_msg.driver_error = 
+            ((uint16_t)(frame->byte_6) |
+           (uint16_t)(frame->byte_5) << 8);
       break;
     }
     /****************** sensor frame *****************/
