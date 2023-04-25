@@ -146,6 +146,104 @@ class PercyBase : public PercyRobotCommonInterface {
       if (parser_.EncodeMessage(&msg, &frame)) can_->SendFrame(frame);
     }
   }
+
+  void SetFactorySetting()
+  {
+    Agx_Percy_Message msg;
+    msg.type = AgxMsgPercyFactory;
+    msg.body.restore_fac_set_msg.fixedcontent = "FACRESET";
+
+    if (can_ != nullptr && can_->IsOpened()) {
+      can_frame frame;
+      if (parser_.EncodeMessage(&msg, &frame)) can_->SendFrame(frame);
+    }
+  }
+
+  void ClearErrorStates()
+  {
+    Agx_Percy_Message msg;
+    msg.type = AgxMsgPercyClearErrorStates;
+    msg.body.clear_error_msg.control_mode = 0x00;
+
+    if (can_ != nullptr && can_->IsOpened()) {
+      can_frame frame;
+      if (parser_.EncodeMessage(&msg, &frame)) can_->SendFrame(frame);
+    }
+  }
+
+  void AccDecConfig(uint16_t max_acc, uint16_t max_dec)
+  {
+    Agx_Percy_Message msg;
+    msg.type = AgxMsgPercyAccDecConfig;
+    msg.body.acc_dec_conf_msg.max_acc = max_acc;
+    msg.body.acc_dec_conf_msg.max_dec = max_dec;
+
+    if (can_ != nullptr && can_->IsOpened()) {
+      can_frame frame;
+      if (parser_.EncodeMessage(&msg, &frame)) can_->SendFrame(frame);
+    }
+  }
+
+  void PowerRailBootTimConfig(uint8_t T_PWR_DELAY_1,uint8_t T_PWR_DELAY_2,uint8_t T_ON_TIMEOUT,
+                              uint8_t T_OFF_TIMEOUT,uint8_t T_ON,uint8_t T_OFF,uint8_t T_PB)
+  {
+    Agx_Percy_Message msg;
+    msg.type = AgxMsgPercyPowerRailBoot;
+
+    msg.body.power_rail_boot_msg.T_PWR_DELAY_1 = T_PWR_DELAY_1;
+    msg.body.power_rail_boot_msg.T_PWR_DELAY_2 = T_PWR_DELAY_2;
+    msg.body.power_rail_boot_msg.T_ON_TIMEOUT = T_ON_TIMEOUT;
+    msg.body.power_rail_boot_msg.T_OFF_TIMEOUT = T_OFF_TIMEOUT;
+    msg.body.power_rail_boot_msg.T_ON = T_ON;
+    msg.body.power_rail_boot_msg.T_OFF = T_OFF;
+    msg.body.power_rail_boot_msg.T_PB = T_PB;
+
+    if (can_ != nullptr && can_->IsOpened()) {
+      can_frame frame;
+      if (parser_.EncodeMessage(&msg, &frame)) can_->SendFrame(frame);
+    }
+  }
+
+  void FanRevoSpeedConfig(uint8_t fan1_rev,uint8_t fan2_rev,uint8_t fan3_rev,uint8_t fan4_rev)
+  {
+    Agx_Percy_Message msg;
+    msg.type = AgxMsgPercyFanRevolingSpeed;
+
+    msg.body.fan_speed_cmd_msg.Fan1_revol_perc = fan1_rev;
+    msg.body.fan_speed_cmd_msg.Fan2_revol_perc = fan2_rev;
+    msg.body.fan_speed_cmd_msg.Fan3_revol_perc = fan3_rev;
+    msg.body.fan_speed_cmd_msg.Fan4_revol_perc = fan4_rev;
+
+    if (can_ != nullptr && can_->IsOpened()) {
+      can_frame frame;
+      if (parser_.EncodeMessage(&msg, &frame)) can_->SendFrame(frame);
+    }
+  }
+
+  void ChargeConfig(ChargeConfig chargeconfig)
+  {
+    Agx_Percy_Message msg;
+    msg.type = AgxMsgPercyChargeConfig;
+    msg.body.charge_config_msg = chargeconfig;
+
+    if (can_ != nullptr && can_->IsOpened()) {
+      can_frame frame;
+      if (parser_.EncodeMessage(&msg, &frame)) can_->SendFrame(frame);
+    }
+  }
+
+  void FirmwareVerQuery()
+  {
+    Agx_Percy_Message msg;
+    msg.type = AgxMsgPercyFirmwareVersion;
+    msg.body.firm_ver_q_msg.FixContent = 0x01;
+
+    if (can_ != nullptr && can_->IsOpened()) {
+      can_frame frame;
+      if (parser_.EncodeMessage(&msg, &frame)) can_->SendFrame(frame);
+    }
+  }
+
   void ResetRobotState() override {}
 
   ProtocolVersion GetParserProtocolVersion() override {

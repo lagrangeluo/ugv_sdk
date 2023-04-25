@@ -1,13 +1,21 @@
 # Changelog for sdk
 
+## 1.1 (2023-4-25)
+------------------
+- add function of Power rail,fan speed,charge config,firmware version query without firmware version configuration and AMR Node config
+- Contributors: Junyu Luo
+
 ## 1.1 (2023-4-24)
 ------------------
 - test all feedbacks of 0x2 and 0x3
+- add factory setting function,clear error state function,acc and dec config
+- Contributors: Junyu Luo
 
 ## 1.1 (2023-4-20)
 ------------------
 - test light rgb command message using virtual can network.
 - test other 0x1 series command
+- Contributors: Junyu Luo
 
 ## 1.1 (2023-4-18)
 ------------------
